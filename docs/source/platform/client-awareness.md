@@ -26,7 +26,7 @@ client or set of clients across different stacks. This segmentation provides:
 By default, Apollo Server >=2.2.3 looks at the request headers for `apollographql-client-name` and `apollographql-client-version`.
 With Apollo Client >2.4.6, we set the `name` and `version` inside of the `ApolloClient` constructor:
 
-```js line=8-9
+```js{8-9}
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 
@@ -75,7 +75,7 @@ The client or consumer of the GraphQL API is responsible for including the
 information in a way that the server understands. In this case, we add the
 client name and version to the http headers:
 
-```js line=8-16
+```js{8-16}
 import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import { ApolloLink } from "apollo-link";
@@ -104,7 +104,7 @@ to a request. To provide metrics to the Apollo Platform, pass a
 `generateClientInfo` function into the `ApolloServer` constructor. The
 following checks the headers and provides a fallback.
 
-```js line=8-22
+```js{8-22}
 const { ApolloServer } = require("apollo-server");
 
 const server = new ApolloServer({

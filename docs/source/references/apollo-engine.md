@@ -18,11 +18,11 @@ Accounts
 ######################################################################
 -->
 
-<h2 id="accounts">Accounts</h2>
+## Accounts
 
 Engine accounts are authenticated using GitHub by default. We alternatively offer single sign-on (SAML or OIDC) to our [Enterprise](https://www.apollographql.com/plans/) customers.
 
-<h3 id="team-collaboration">Team collaboration</h3>
+### Team collaboration
 
 Engine accounts mirror your GitHub organizations. The first time you log in, we create a personal Engine account for you with the same name as your GitHub username.
 
@@ -32,13 +32,13 @@ When you sign in to Engine, you will have access to all the teams where you're a
 
 If you’d like to work with additional team members and you are the admin of a GitHub organization, simply add them to your GitHub organization. If you aren’t an admin, have an admin add you to their GitHub organization.
 
-<h3 id="add-organization">Adding an organization</h3>
+### Adding an organization
 
 If you’re looking for a GitHub organization that you’re a member of and don’t see it in Engine, it’s likely that Engine does not have read access for that organization.
 
 If you want to add or remove an organization from Engine, you should manage those settings on GitHub. There, you will be able to Grant or Revoke access to Engine for organizations you can administer. For organizations you do not administer, you can Request access to Engine and the administrators will receive a request by E-mail.
 
-<h3 id="github-permissions">GitHub permissions</h3>
+### GitHub permissions
 
 GitHub’s OAuth service is used for read-only information about organizations and users. Engine does not need access rights to your source code or to any other sensitive data in its login system.
 
@@ -50,17 +50,17 @@ Services
 ######################################################################
 -->
 
-<h2 id="services">Services</h2>
+## Services
 
 A service in Engine represents a "project" or "application". When you create a new service, we provide an API key used to send performance metrics and schema versions to our cloud service. This information is then accessible through the Engine interface.
 
-<h3 id="creating-services">Creating a service</h3>
+### Creating a service
 
 To create a service, you will need to select an account for that service to belong to. All members of the account will be able to see the service’s data and settings options. You can transfer services between any of your Engine accounts. To transfer a service, visit its Settings page and change the “Endpoint owner” to whichever account you’d like.
 
 Services in Engine have globally unique IDs. We recommend that you prefix your service ID with the name of your company or organization.
 
-<h3 id="environments">Managing environments</h3>
+### Managing environments
 
 Each service in Engine should represent a single application, and environments within your application should be tracked using [schema tags](https://www.apollographql.com/docs/platform/schema-registry.html#schema-tags). All metrics that your server reports to Engine and all schema versions that you register should be tagged with their environment, and you'll be able to filter and look at the data for individual environments within the service.
 
@@ -76,11 +76,11 @@ Data privacy
 ######################################################################
 -->
 
-<h2 id="data-privacy">Data privacy</h2>
+## Data privacy
 
 All data that is sent to Engine from your server can be configured and turned off to meet your data privacy needs. This section will walk through what information Engine sees about your GraphQL service’s request, what Engine’s default behavior to handle request data is, and how you can configure Engine to the level of data privacy your team needs.
 
-<h3 id="architecture">Architecture</h3>
+### Architecture
 
 Engine is primarily a cloud service that ingests and stores performance metrics data from your server. There are two ways to get data into Engine:
 
@@ -101,7 +101,7 @@ As your clients make requests to your server, the proxy reads response extension
 
 While the Engine proxy sees your client request data and service response data, it only collects and forwards data that goes into the reports you see in the Engine dashboards. All information sent by your on-premise proxy to the out-of-band Engine cloud service is configurable, and can be turned off through configuration options. Data is aggregated and sent approximately every 5 seconds.
 
-<h3 id="data-collection">Data collection</h3>
+### Data collection
 
 This section describes which parts of your GraphQL HTTP requests are seen and collected by Engine.
 
@@ -125,11 +125,11 @@ Engine will **never** collect your application's `Authorization`, `Cookie`, or `
 
 If you perform authorization in another header (like `X-My-API-Key`), be sure to add this to `privateHeaders` configuration. Note that unlike headers in general, this configuration option **is** case-sensitive.
 
-<h3 id="response">Response</h3>
+### Response
 
 Let’s walk through Engine’s default behavior for reporting on fields in a typical GraphQL response:
 
-```
+```json
 // GraphQL Response
 {
   "data": { ... },          // Never sent to the Engine cloud service
@@ -168,7 +168,7 @@ GDOR
 ######################################################################
 -->
 
-<h2 id="gdpr" title="GDPR">GDPR</h2>
+## GDPR
 
 Effective May 25, 2018, the General Data Protection Regulation (GDPR) expands European Union (EU) residents’ (Data Subjects) rights concerning their personal data. Meteor Development Group Inc. (“MDG” also dba Apollo) stands ready to assist our customers to become or remain compliant with GDPR after this crucial transition.
 
@@ -203,7 +203,7 @@ The legal terms and policies that apply to Apollo's corporate websites and custo
 
 #### Where can I get more help?
 
-If you have any questions (including interest in a Data Processing Addendum or DPA), or encounter any issues, please reach out to <a href="https://engine.apollographql.com/support">support</a>.
+If you have any questions (including interest in a Data Processing Addendum or DPA), or encounter any issues, please reach out to [support](https://engine.apollographql.com/support).
 
 <!--
 ######################################################################
@@ -211,6 +211,6 @@ Policies and Agreements
 ######################################################################
 -->
 
-<h2 id="policies" title="Policies and Agreements">Policies and Agreements</h2>
+## Policies and Agreements
 
 To learn about other ways that we protect your data, please read over our [Terms of Service](https://www.apollographql.com/policies/terms) and [Privacy Policy](https://www.apollographql.com/policies/privacy).

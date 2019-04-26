@@ -9,7 +9,7 @@ As such, schema change validation is one of the cornerstones of the [Apollo Plat
 
 > **Note:** Schema validation is an Apollo Platform feature available on the [_Team_ and _Enterprise_ plans](https://www.apollographql.com/plans/). To get started with the Apollo Platform, begin with [the documentation](https://www.apollographql.com/docs/). If you already have an Engine account, upgrade to a [Team plan](https://engine.apollographql.com/upgrade).
 
-<h2 id="schema-validation">How it works</h2>
+## How it works
 
 The schema validation mechanism utilizes both Apollo's schema registry and Apollo's trace warehouse. The **schema registry** is used to compute a "schema diff" with changes between schema versions. The **trace warehouse** is used to identify which schema fields have been recently used by clients and operations seen in a deployed system. We compare each change in the schema diff against the live usage data to determine if that change is "breaking change" for any clients.
 
@@ -22,7 +22,7 @@ Here's how it works:
 1. Engine will return the schema diff and indicate any breaking changes found.
 1. The CLI will print the output of this check with a link to _view more details in the Engine UI_.
 
-<h3 id="algorithm">Breaking change detection</h3>
+### Breaking change detection
 
 Engine's cloud service uses an algorithm to detect breaking changes in a schema diff. The following sections describe the rules that determine when a change type _fails_ the `apollo service:check` command, which returns a non-0 exit code. If these changes are deployed without additional scrutiny, clients could experience unexpected behavior.
 
@@ -154,7 +154,7 @@ The Service Check page in Engine will have full details on the changes in the di
 
 > **Note:** If you [set up your checks on GitHub](#github), the "Details" link in your checks will take you to this special URL as well.
 
-<h2 id="setup">Set up schema validation</h2>
+## Set up schema validation
 
 You will need to be actively sending traces to the Apollo trace warehouse and registering schemas to the Apollo schema registry to properly use schema validation. Follow these guides to set those up:
 
@@ -177,13 +177,13 @@ The command can be placed in any continuous integration pipeline. To surface res
 
 > **Note:** The Apollo CLI will be looking in your Apollo config for a location from which to fetch your local schema and using your ENGINE_API_KEY to authenticate its requests with the Engine service.
 
-<h3 id="service-check-on-ci">Run validation on each commit</h3>
+### Run validation on each commit
 
 We highly recommended that you add validation to your continuous integration workflow (e.g. Jenkins, CircleCI, etc.). In doing so, you can detect potential problems automatically and display the results of checks directly on pull requests.
 
 Here's a example of how to add a schema validation check to CircleCI:
 
-```yaml line=29
+```yaml{26}
 version: 2
 
 jobs:
@@ -214,7 +214,7 @@ jobs:
 
 > **Note:** With a GitHub status check, to allow continuous integration to complete without failing early, ignore the exit code of the `apollo service:check` command. The exit code can be ignored by appending `|| echo 'validation failed'` to the command call.
 
-<h3 id="github">GitHub integration</h3>
+### GitHub integration
 
 <div style="text-align:center">
 
@@ -226,7 +226,7 @@ Like most tools, schema validation is best used when it is integrated directly i
 
 Go to [https://github.com/apps/apollo-engine](https://github.com/apps/apollo-engine) and click the `Configure` button to install the Apollo Engine integration on the appropriate GitHub profile or organization.
 
-<h3 id="multiple-environments">Multiple environments</h3>
+### Multiple environments
 
 Product cycles move fast, and it’s common for schemas to be slightly different across environments as changes make their way through your system. To accommodate for this, schemas can be registered under specific schema tags and checks can be performed against specific schema tags.
 
@@ -238,7 +238,7 @@ Tags mostly commonly represent environments and can also indicate branches or fu
 
 </div>
 
-<h2 id="cli-advanced">Adjusting validation parameters</h2>
+## Adjusting validation parameters
 
 Depending on the requirements of your application, you may want to configure the timeframe to validate operations against. You can do so by providing a `validationPeriod` flag to the CLI. The timeframe will always end at "now", and go back in time by the amount specified.
 
@@ -266,7 +266,7 @@ npx apollo service:check \
 --queryCountThresholdPercentage=3
 ```
 
-<h2 id="compatible-changes">Compatible Changes</h2>
+## Compatible Changes
 
 The following changes are compatible with existing clients by default, since they will not affect the behavior of clients.
 
@@ -276,21 +276,21 @@ Optional arguments include changes that add any input that can be nullable.
 Existing operations will not include the new value. The behavior of the clients will
 stay the same provided the result of the operation remains the same with a <code>null</code> input.
 
-  <ul>
-    <li id="OPTIONAL_ARG_ADDED"><code>OPTIONAL_ARG_ADDED</code> Nullable argument added to a field</li>
-    <li id="NULLABLE_FIELD_ADDED_TO_INPUT_OBJECT"><code>NULLABLE_FIELD_ADDED_TO_INPUT_OBJECT</code> Nullable field added to an input object</li>
-  </ul>
+<ul>
+  <li id="OPTIONAL_ARG_ADDED"><code>OPTIONAL_ARG_ADDED</code> Nullable argument added to a field</li>
+  <li id="NULLABLE_FIELD_ADDED_TO_INPUT_OBJECT"><code>NULLABLE_FIELD_ADDED_TO_INPUT_OBJECT</code> Nullable field added to an input object</li>
+</ul>
 
 #### Additions
 
 Additions are changes that will not affect client behavior, since clients
 will not access the new schema elements.
 
-  <ul>
-    <li id="FIELD_ADDED"><code>FIELD_ADDED</code> Field added to a type</li>
-    <li id="TYPE_ADDED"><code>TYPE_ADDED</code> Type added to the schema</li>
-    <li id="VALUE_ADDED_TO_ENUM"><code>VALUE_ADDED_TO_ENUM</code> Value added to an enum. If clients contain a switch case on the enum and do not include the `default`, this change could cause unexpected behavior</li>
-  </ul>
+<ul>
+  <li id="FIELD_ADDED"><code>FIELD_ADDED</code> Field added to a type</li>
+  <li id="TYPE_ADDED"><code>TYPE_ADDED</code> Type added to the schema</li>
+  <li id="VALUE_ADDED_TO_ENUM"><code>VALUE_ADDED_TO_ENUM</code> Value added to an enum. If clients contain a switch case on the enum and do not include the `default`, this change could cause unexpected behavior</li>
+</ul>
 
 #### Deprecations
 
@@ -298,11 +298,11 @@ Deprecations will not affect the behavior of the clients directly, since
 they are a signal to developer to avoid the schema element rather than a
 behavior change.
 
-  <ul>
-    <li id="FIELD_DEPRECATED"><code>FIELD_DEPRECATED</code> Field deprecated</li>
-    <li id="FIELD_DEPRECATION_REMOVED"><code>FIELD_DEPRECATION_REMOVED</code> Field no longer deprecated</li>
-    <li id="FIELD_DEPRECATED_REASON_CHANGE"><code>FIELD_DEPRECATED_REASON_CHANGE</code> Reason for deprecation changed</li>
-    <li id="ENUM_DEPRECATED"><code>ENUM_DEPRECATED</code> Enum deprecated</li>
-    <li id="ENUM_DEPRECATION_REMOVED"><code>ENUM_DEPRECATION_REMOVED</code> Enum no longer deprecated</li>
-    <li id="ENUM_DEPRECATED_REASON_CHANGE"><code>ENUM_DEPRECATED_REASON_CHANGE</code> Reason for enum deprecation changed</li>
-  </ul>
+<ul>
+  <li id="FIELD_DEPRECATED"><code>FIELD_DEPRECATED</code> Field deprecated</li>
+  <li id="FIELD_DEPRECATION_REMOVED"><code>FIELD_DEPRECATION_REMOVED</code> Field no longer deprecated</li>
+  <li id="FIELD_DEPRECATED_REASON_CHANGE"><code>FIELD_DEPRECATED_REASON_CHANGE</code> Reason for deprecation changed</li>
+  <li id="ENUM_DEPRECATED"><code>ENUM_DEPRECATED</code> Enum deprecated</li>
+  <li id="ENUM_DEPRECATION_REMOVED"><code>ENUM_DEPRECATION_REMOVED</code> Enum no longer deprecated</li>
+  <li id="ENUM_DEPRECATED_REASON_CHANGE"><code>ENUM_DEPRECATED_REASON_CHANGE</code> Reason for enum deprecation changed</li>
+</ul>
