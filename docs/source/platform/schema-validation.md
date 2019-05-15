@@ -5,7 +5,7 @@ description: Check if proposed schema changes are safe or breaking by comparing 
 
 As GraphQL scales within an organization, it's important in schema evolution to keep current queries and clients in mind and avoid breaking changes. Some organizations take the approach of _never_ making schema changes that might be breaking, which leads to an ever-growing schema and reduced api accessibility. In reality, removing field removal and updating return types is safe with tools to guarantee that no change will ever break an active query.
 
-As such, schema change validation is one of the cornerstones of the [Apollo Platform](/docs/intro/platform.html) and we've built a set of tools to make the workflow possible.
+As such, schema change validation is one of the cornerstones of the [Apollo Platform](/intro/platform/) and we've built a set of tools to make the workflow possible.
 
 > **Note:** Schema validation is an Apollo Platform feature available on the [_Team_ and _Enterprise_ plans](https://www.apollographql.com/plans/). To get started with the Apollo Platform, begin with [the documentation](https://www.apollographql.com/docs/). If you already have an Engine account, upgrade to a [Team plan](https://engine.apollographql.com/upgrade).
 
@@ -158,13 +158,13 @@ The Service Check page in Engine will have full details on the changes in the di
 
 You will need to be actively sending traces to the Apollo trace warehouse and registering schemas to the Apollo schema registry to properly use schema validation. Follow these guides to set those up:
 
-1. [Set up trace reporting to Apollo Engine](/docs/platform/setup-analytics.html) (either through Apollo Server 2+ or the Engine proxy).
-1. [Set up schema registration in your continuous delivery pipeline](/docs/platform/schema-registry.html).
+1. [Set up trace reporting to Apollo Engine](/references/setup-analytics/) (either through Apollo Server 2+ or the Engine proxy).
+1. [Set up schema registration in your continuous delivery pipeline](/platform/schema-registry/).
 
 For the `apollo service:check` command to be configured properly, you will also need:
 
-1. [A `.env` file with an `ENGINE_API_KEY`](/docs/platform/schema-registry.html#Get-your-Engine-API-key).
-1. [An `apollo.config.js` file with a `service` configured](/docs/platform/schema-registry.html#Create-an-apollo-config-js-file).
+1. [A `.env` file with an `ENGINE_API_KEY`](/platform/schema-registry/#get-your-engine-api-key).
+1. [An `apollo.config.js` file with a `service` configured](/platform/schema-registry/#create-an-apolloconfigjs-file).
 
 If you have set up schema registration, your project may already have its `.env` file and `apollo.config.js` file configured. Once you've got these set up, running your schema check is as simple as running:
 

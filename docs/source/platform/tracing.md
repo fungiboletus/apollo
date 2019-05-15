@@ -3,7 +3,7 @@ title: Working with traces
 description: How to analyze field-level metrics with Apollo
 ---
 
-Engine tracks all queries that clients send to your GraphQL API. We often prefer to call these "operations", a term that includes both GraphQL queries and mutations. The execution timing of individual operations and fields is always aggregated into statistics that are sent to Engine (see [performance analytics](performance.html) for more information), and sometimes additional detail is included.
+Engine tracks all queries that clients send to your GraphQL API. We often prefer to call these "operations", a term that includes both GraphQL queries and mutations. The execution timing of individual operations and fields is always aggregated into statistics that are sent to Engine (see [performance analytics](/references/setup-analytics) for more information), and sometimes additional detail is included.
 
 ## Resolver execution
 
@@ -31,7 +31,7 @@ Some of the fields have a gray oval around them. These are fields that can be ex
 
 ## Trace inspector
 
-When Engine deems that a particular sample is interesting enough to be recorded as a full [Trace](performance.html#trace), the complete resolver timings, individual variables, and HTTP request headers are captured and stored by Engine as well.  These traces can be incredibly useful to understand specific examples of queries that have been run on your GraphQL API.  Using the _Trace Inspector_, you can see the operation string that was sent, along with the variables and headers that were collected by Engine for this trace:
+When Engine deems that a particular sample is interesting enough to be recorded as a full [Trace](/references/setup-analytics/#1-tracing-format), the complete resolver timings, individual variables, and HTTP request headers are captured and stored by Engine as well.  These traces can be incredibly useful to understand specific examples of queries that have been run on your GraphQL API.  Using the _Trace Inspector_, you can see the operation string that was sent, along with the variables and headers that were collected by Engine for this trace:
 
 ![Trace Inspector](../img/trace-inspector.png)
 
@@ -88,7 +88,7 @@ The signature algorithm is primarily designed to make it possible to treat opera
 
 Future versions of Engine are likely to change this default algorithm to leave string literals alone, though it will still be easy to configure your server to remove string literals like in the current implementation. We also intend to stop sending the full raw query in future versions of Engine, so that the signature algorithm really can be used to avoid sending sensitive data in queries to Engine.
 
-But where possible, we strongly advise that you keep sensitive data in GraphQL variables instead of in literal arguments in the query body, as you can more easily control which variables should be stripped out of the Engine reporting pathway for privacy purposes. See [data privacy](../data-privacy.html) for further detail on how this works.
+But where possible, we strongly advise that you keep sensitive data in GraphQL variables instead of in literal arguments in the query body, as you can more easily control which variables should be stripped out of the Engine reporting pathway for privacy purposes. See [data privacy](/references/apollo-engine/#data-privacy) for further detail on how this works.
 
 ## A note on GraphQL subscriptions
 

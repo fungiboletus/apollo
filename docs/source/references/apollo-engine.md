@@ -120,8 +120,8 @@ Both Apollo Server 2 and the Engine proxy will report the query variables for ea
 
 Engine will **never** collect your application's `Authorization`, `Cookie`, or `Set-Cookie` headers and ignores these if received. Engine will collect all other headers from your request to show in the trace inspector unless turned off with these configurations:
 
-- **Apollo Server 2** – use the [`privateHeaders` option](https://www.apollographql.com/docs/apollo-server/api/apollo-server.html#EngineReportingOptions) in your Apollo Server configuration for Engine.
-- **Engine Proxy** – use the [`privateHeaders` option](./proxy-config.html#Reporting) in your proxy configuration.
+- **Apollo Server 2** – use the [`privateHeaders` option](https://www.apollographql.com/docs/apollo-server/api/apollo-server/#EngineReportingOptions) in your Apollo Server configuration for Engine.
+- **Engine Proxy** – use the [`privateHeaders` option](/references/proxy-config/#reporting) in your proxy configuration.
 
 If you perform authorization in another header (like `X-My-API-Key`), be sure to add this to `privateHeaders` configuration. Note that unlike headers in general, this configuration option **is** case-sensitive.
 
@@ -145,7 +145,7 @@ Let’s walk through Engine’s default behavior for reporting on fields in a ty
 
 Neither Apollo Server 2 nor the Engine proxy will ever send the contents of this to the Engine cloud service. The responses from your GraphQL service stay on-prem.
 
-If you've configured whole query caching through the Engine proxy and Engine determines that a response it sees is cacheable, then the response will be stored in your [Engine cache](./caching.html#config.stores) (either in-memory in your proxy or as an external memcached you configure).
+If you've configured whole query caching through the Engine proxy and Engine determines that a response it sees is cacheable, then the response will be stored in your Engine cache (either in-memory in your proxy or as an external memcached you configure).
 
 #### `response.errors`
 
@@ -153,14 +153,14 @@ If either Apollo Server 2 or the Engine proxy sees a response with an `"errors"`
 
 You can disable reporting errors to the out-of-band Engine cloud service like so:
 
-- **Apollo Server 2** – enable the [`maskErrorDetails` option](/docs/apollo-server/api/apollo-server#EngineReportingOptions) to remove the messages and other details from error traces sent to Apollo's cloud service.
-- **Engine proxy** – use the [`noTraceErrors` option](./proxy-config.html#Reporting) to disable sending error traces to the Engine cloud service.
+- **Apollo Server 2** – enable the [`maskErrorDetails` option](https://www.apollographql.com/docs/apollo-server/api/apollo-server/#EngineReportingOptions) to remove the messages and other details from error traces sent to Apollo's cloud service.
+- **Engine proxy** – use the [`noTraceErrors` option](/references/proxy-config/#reporting) to disable sending error traces to the Engine cloud service.
 
 #### Disable Reporting (Engine proxy)
 
 We've added the option to disable reporting of proxy stats and response traces to the Engine cloud service so that integration tests can run without polluting production data.
 
-To disable all reporting, use the [`disabled` option](./proxy-config.html#Reporting) for the Engine proxy.
+To disable all reporting, use the [`disabled` option](/references/proxy-config/#reporting) for the Engine proxy.
 
 <!--
 ######################################################################
